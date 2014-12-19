@@ -5,29 +5,37 @@
 ;;; last temporary file.
 (defun encrypt (json-object)
   (let ((email (jsown:val json-object "email"))
-	(message (jsown:val json-object "message")))
-    (with-open-file (file "/tmp/foo"
+	(message (jsown:val json-object "message"))
+	(temp-file "/tmp/foo")
+	(temp-encrypted-file "/tmp/foo.gpg"))
+    (mapcar #'(lambda (file)
+		(when (probe-file file)
+		  (delete-file file)))
+	    (list temp-file temp-encrypted-file))
+    (with-open-file (file temp-file
 			  :direction :output
-			  :if-does-not-exist :create
-			  :if-exists :overwrite)
+			  :if-does-not-exist :create)
       (format file "~A" message))
-    (run-gpg email "/tmp/foo")
-    (with-open-file (file "/tmp/foo.gpg")
+    (run-gpg email temp-file temp-encrypted-file)
+    (with-open-file (file temp-encrypted-file)
       (jsown:new-js
-	("encrypted_message" (format nil "~{~s~%~}" (read-file file)))))))
+	("text" (read-file file))))))
 
-(defun run-gpg (email temp-file)
+(defun run-gpg (email temp-file temp-encrypted-file)
   (sb-ext:run-program
    "/usr/bin/gpg"
    (list
     "--encrypt"
     "--recipient" email
-    "--output" (concatenate 'string temp-file ".gpg")
+    "--output" temp-encrypted-file
     "--yes"
     "--armor"
     temp-file)))
 
 (defun read-file (file)
-  (loop for line = (read-line file nil)
-     while line
-     collect line))
+  (format
+   nil
+   "~{~A~%~}"
+   (loop for line = (read-line file nil)
+      while line
+      collect line)))

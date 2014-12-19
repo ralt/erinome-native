@@ -3,7 +3,8 @@
   :author "Florian Margaine <florian@margaine.com>"
   :license "MIT License"
   :serial t
-  :depends-on ("bordeaux-threads" "jsown")
+  :depends-on ("bordeaux-threads" "jsown" "alexandria")
   :components ((:file "package")
+	       (:file "send-error")
 	       (:file "encrypter")
                (:file "pgp-ext-app")))

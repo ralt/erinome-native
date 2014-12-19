@@ -11,8 +11,9 @@
 	 (action (jsown:val json-object "action")))
     (send-to-ext
      (jsown:to-json
-      (when (string= action "encrypt")
-	(encrypt json-object))))))
+      (alexandria:switch (action :test 'equal)
+	("encrypt" (encrypt json-object))
+	(otherwise (send-error buffer)))))))
 
 (defun read-stdin-as-string (length)
   (let ((string (make-string length)))
@@ -27,16 +28,18 @@
    (* (read-byte stream (expt 2 24)))))
 
 (defun integer-to-chars (integer)
-  (mapcar #'code-char
-	  (list
-	   (ash integer 0)
-	   (logand (ash integer (* 1 8)) #xFF)
-	   (logand (ash integer (* 2 8)) #xFF)
-	   (logand (ash integer (* 3 8)) #xFF))))
+  (mapcar
+   #'code-char
+   (list
+    (logand integer #xFF)
+    (logand (ash integer -8) #xFF)
+    (logand (ash integer -16) #xFF)
+    (logand (ash integer -24) #xFF))))
 
 (defun send-to-ext (str)
   (let ((len (length str)))
-    (format *standard-output*
-	    "~{~c~}~A"
+    (format t
+	    "~{~C~}~A"
 	    (integer-to-chars len)
-	    str)))
+	    str)
+    (force-output)))
