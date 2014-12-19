@@ -1,5 +1,8 @@
 (in-package #:pgp-ext-app)
 
+(defvar +tmp-folder+ "/tmp/")
+(defvar +tmp-filenames-length+ 29)
+
 (defun main ()
   "Application's entry point."
   (loop (main-loop)))
@@ -13,6 +16,7 @@
      (jsown:to-json
       (alexandria:switch (action :test 'equal)
 	("encrypt" (encrypt json-object))
+	("decrypt" (decrypt json-object))
 	(otherwise (send-error buffer)))))))
 
 (defun read-stdin-as-string (length)
@@ -43,3 +47,17 @@
 	    (integer-to-chars len)
 	    str)
     (force-output)))
+
+(defun delete-files (files)
+  (mapcar #'(lambda (file)
+	      (when (probe-file file)
+		(delete-file file)))
+	  files))
+
+(defun random-string (length)
+  (with-output-to-string (stream)
+    (let ((*print-base* 36))
+      (loop repeat length do (princ (random 36) stream)))))
+
+(defmacro cat (&body body)
+  `(concatenate 'string ,@body))

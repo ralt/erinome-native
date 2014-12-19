@@ -6,23 +6,20 @@
 (defun encrypt (json-object)
   (let ((email (jsown:val json-object "email"))
 	(message (jsown:val json-object "message"))
-	(temp-file "/tmp/foo")
-	(temp-encrypted-file "/tmp/foo.gpg"))
-    (mapcar #'(lambda (file)
-		(when (probe-file file)
-		  (delete-file file)))
-	    (list temp-file temp-encrypted-file))
+	(temp-file (cat +tmp-folder+ (random-string +tmp-filenames-length+)))
+	(temp-encrypted-file (cat +tmp-folder+ (random-string +tmp-filenames-length+))))
+    (delete-files (list temp-file temp-encrypted-file))
     (with-open-file (file temp-file
 			  :direction :output
 			  :if-does-not-exist :create)
       (format file "~A" message))
-    (run-gpg email temp-file temp-encrypted-file)
+    (encrypt-run-gpg email temp-file temp-encrypted-file)
     (with-open-file (file temp-encrypted-file)
       (jsown:new-js
 	("text" (read-file file))))))
 
-(defun run-gpg (email temp-file temp-encrypted-file)
-  (sb-ext:run-program
+(defun encrypt-run-gpg (email temp-file temp-encrypted-file)
+  (external-program:run
    "/usr/bin/gpg"
    (list
     "--encrypt"
