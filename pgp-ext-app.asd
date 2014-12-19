@@ -5,4 +5,5 @@
   :serial t
   :depends-on ("bordeaux-threads" "jsown")
   :components ((:file "package")
+	       (:file "encrypter")
                (:file "pgp-ext-app")))
