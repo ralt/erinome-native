@@ -6,8 +6,8 @@
 (defun encrypt (json-object)
   (let ((email (jsown:val json-object "email"))
 	(message (jsown:val json-object "message"))
-	(temp-file (cat +tmp-folder+ (random-string +tmp-filenames-length+)))
-	(temp-encrypted-file (cat +tmp-folder+ (random-string +tmp-filenames-length+))))
+	(temp-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+)))
+	(temp-encrypted-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+))))
     (delete-files (list temp-file temp-encrypted-file))
     (with-open-file (file temp-file
 			  :direction :output
@@ -16,7 +16,8 @@
     (encrypt-run-gpg email temp-file temp-encrypted-file)
     (with-open-file (file temp-encrypted-file)
       (jsown:new-js
-	("text" (read-file file))))))
+	("text" (read-file file))
+	("email" email)))))
 
 (defun encrypt-run-gpg (email temp-file temp-encrypted-file)
   (external-program:run
@@ -30,9 +31,6 @@
     temp-file)))
 
 (defun read-file (file)
-  (format
-   nil
-   "~{~A~%~}"
-   (loop for line = (read-line file nil)
-      while line
-      collect line)))
+  (loop for line = (read-line file nil)
+     while line
+     collect line))

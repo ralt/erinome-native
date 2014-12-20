@@ -58,6 +58,3 @@
   (with-output-to-string (stream)
     (let ((*print-base* 36))
       (loop repeat length do (princ (random 36) stream)))))
-
-(defmacro cat (&body body)
-  `(concatenate 'string ,@body))

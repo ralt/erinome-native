@@ -3,8 +3,8 @@
 (defun decrypt (json-object)
   (let ((email (jsown:val json-object "email"))
 	(message (jsown:val json-object "message"))
-	(temp-encrypted-file (cat +tmp-folder+ (random-string +tmp-filenames-length+)))
-	(temp-decrypted-file (cat +tmp-folder+ (random-string +tmp-filenames-length+))))
+	(temp-encrypted-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+)))
+	(temp-decrypted-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+))))
     (delete-files (list temp-encrypted-file temp-decrypted-file))
     (with-open-file (file temp-encrypted-file
 			  :direction :output
