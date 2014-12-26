@@ -16,6 +16,7 @@
     (encrypt-run-gpg email temp-file temp-encrypted-file)
     (with-open-file (file temp-encrypted-file)
       (jsown:new-js
+	("action" "encrypted")
 	("text" (read-file file))
 	("email" email)))))
 

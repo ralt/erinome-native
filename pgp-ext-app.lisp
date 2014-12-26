@@ -31,22 +31,20 @@
    (* (read-byte stream (expt 2 16)))
    (* (read-byte stream (expt 2 24)))))
 
-(defun integer-to-chars (integer)
-  (mapcar
-   #'code-char
-   (list
-    (logand integer #xFF)
-    (logand (ash integer -8) #xFF)
-    (logand (ash integer -16) #xFF)
-    (logand (ash integer -24) #xFF))))
+(defun integer-to-bytes (integer)
+  (list
+   (logand integer #xFF)
+   (logand (ash integer -8) #xFF)
+   (logand (ash integer -16) #xFF)
+   (logand (ash integer -24) #xFF)))
 
 (defun send-to-ext (str)
   (let ((len (length str)))
-    (format t
-	    "~{~C~}~A"
-	    (integer-to-chars len)
-	    str)
-    (force-output)))
+    (dolist (byte (integer-to-bytes len))
+      (write-byte byte *standard-output*))
+    (dolist (byte (coerce str 'list))
+      (write-byte (char-code byte) *standard-output*)))
+  (force-output))
 
 (defun delete-files (files)
   (mapcar #'(lambda (file)
