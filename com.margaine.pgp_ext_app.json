@@ -1,0 +1,9 @@
+{
+    "name": "com.margaine.pgp_ext_app",
+    "description": "Native application to communicate with gpg",
+    "path": "/home/florian/quicklisp/local-projects/pgp-ext-app/dist/pgp-ext-app",
+    "type": "stdio",
+    "allowed_origins": [
+	"chrome-extension://ojbijegkeaigigigdkgjfeaclcpjfnde/"
+    ]
+}

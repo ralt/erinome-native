@@ -18,6 +18,7 @@
       (jsown:new-js
 	("action" "encrypted")
 	("text" (read-file file))
+	("name" (jsown:val json-object "name"))
 	("email" email)))))
 
 (defun encrypt-run-gpg (email temp-file temp-encrypted-file)
