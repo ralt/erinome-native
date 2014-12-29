@@ -31,8 +31,3 @@
     "--yes"
     "--armor"
     temp-file)))
-
-(defun read-file (file)
-  (loop for line = (read-line file nil)
-     while line
-     collect line))

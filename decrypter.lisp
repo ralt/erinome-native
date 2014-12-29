@@ -13,6 +13,8 @@
     (decrypt-run-gpg email temp-encrypted-file temp-decrypted-file)
     (with-open-file (file temp-decrypted-file)
       (jsown:new-js
+        ("action" "decrypted")
+	("sender" (jsown:val json-object "name"))
 	("text" (read-file file))))))
 
 (defun decrypt-run-gpg (email temp-encrypted-file temp-decrypted-file)
@@ -21,6 +23,6 @@
    (list
     "--decrypt"
     "-u" email
-    "--output" temp-encrypted-file
+    "--output" temp-decrypted-file
     "--yes"
-    temp-decrypted-file)))
+    temp-encrypted-file)))

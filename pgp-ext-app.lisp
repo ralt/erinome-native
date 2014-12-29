@@ -27,9 +27,9 @@
 (defun read-length (stream)
   (+
    (read-byte stream)
-   (* (read-byte stream (expt 2 8)))
-   (* (read-byte stream (expt 2 16)))
-   (* (read-byte stream (expt 2 24)))))
+   (* (read-byte stream) (expt 2 8))
+   (* (read-byte stream) (expt 2 16))
+   (* (read-byte stream) (expt 2 24))))
 
 (defun integer-to-bytes (integer)
   (list
@@ -56,3 +56,8 @@
   (with-output-to-string (stream)
     (let ((*print-base* 36))
       (loop repeat length do (princ (random 36) stream)))))
+
+(defun read-file (file)
+  (loop for line = (read-line file nil)
+     while line
+     collect line))
