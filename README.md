@@ -17,7 +17,7 @@ $ sudo make install-linux-chromium
 
 - [x] Refactor to create and use define-action
 - [ ] Find a way to build on multiple platforms
-- [ ] Find out how to handle releases. http://dl.margaine.com or github?
+- [x] Find out how to handle releases. Github releases.
 - [ ] Handle errors
 
 ## License
