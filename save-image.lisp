@@ -9,4 +9,5 @@
 (sb-ext:save-lisp-and-die #P"dist/pgp-ext-app"
                           :toplevel 'pgp-ext-app:main
                           :executable t
+			  :compression 9
                           :purify t)
