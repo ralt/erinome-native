@@ -1,6 +1,6 @@
 (in-package #:pgp-ext-app)
 
-(defun decrypt (json-object)
+(define-action decrypt (json-object)
   (let ((email (jsown:val json-object "email"))
 	(message (jsown:val json-object "message"))
 	(temp-encrypted-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+)))

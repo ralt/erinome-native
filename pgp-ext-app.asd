@@ -5,7 +5,8 @@
   :serial t
   :depends-on ("jsown" "alexandria" "external-program")
   :components ((:file "package")
+	       (:file "actions")
+	       (:file "actions/encrypt")
+	       (:file "actions/decrypt")
 	       (:file "send-error")
-	       (:file "encrypter")
-	       (:file "decrypter")
-               (:file "pgp-ext-app")))
+	       (:file "pgp-ext-app")))

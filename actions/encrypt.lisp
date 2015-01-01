@@ -1,9 +1,6 @@
 (in-package #:pgp-ext-app)
 
-;;; Create a temporary file, encrypt it and output
-;;; to another temporary file, and send back the
-;;; last temporary file.
-(defun encrypt (json-object)
+(define-action encrypt (json-object)
   (let ((email (jsown:val json-object "email"))
 	(message (jsown:val json-object "message"))
 	(temp-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+)))

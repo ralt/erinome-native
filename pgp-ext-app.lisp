@@ -11,13 +11,17 @@
   (let* ((length (read-length *standard-input*))
 	 (buffer (read-stdin-as-string length))
 	 (json-object (jsown:parse buffer))
-	 (action (jsown:val json-object "action")))
+	 (action (string-upcase (jsown:val json-object "action"))))
     (send-to-ext
      (jsown:to-json
-      (alexandria:switch (action :test 'equal)
-	("encrypt" (encrypt json-object))
-	("decrypt" (decrypt json-object))
-	(otherwise (send-error buffer)))))))
+      (if (hash-exists action +actions+)
+	  (funcall (gethash action +actions+) json-object)
+	  (send-error buffer))))))
+
+(defun hash-exists (key hash)
+  (multiple-value-bind (exists)
+      (gethash key hash)
+    exists))
 
 (defun read-stdin-as-string (length)
   (let ((string (make-string length)))
