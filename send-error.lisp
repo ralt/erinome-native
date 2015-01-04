@@ -1,4 +1,4 @@
-(in-package #:pgp-ext-app)
+(in-package #:erinome-native)
 
 (defun send-error (buffer)
   (jsown:new-js

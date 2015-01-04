@@ -1,3 +1,3 @@
-(defpackage #:pgp-ext-app
+(defpackage #:erinome-native
   (:use #:cl)
   (:export :main))

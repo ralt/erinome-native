@@ -1,4 +1,4 @@
-(in-package #:pgp-ext-app)
+(in-package #:erinome-native)
 
 (defparameter +actions+ (make-hash-table :test 'equal))
 

@@ -1,4 +1,4 @@
-(in-package #:pgp-ext-app)
+(in-package #:erinome-native)
 
 (define-action decrypt (json-object)
   (let ((email (jsown:val json-object "email"))

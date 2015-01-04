@@ -1,9 +1,9 @@
 {
-    "name": "com.margaine.pgp_ext_app",
+    "name": "com.margaine.erinome_native",
     "description": "Native application to communicate with gpg",
-    "path": "/usr/local/bin/pgp-ext-app",
+    "path": "/usr/local/bin/erinome-native",
     "type": "stdio",
     "allowed_origins": [
-	"chrome-extension://ojbijegkeaigigigdkgjfeaclcpjfnde/"
+	"chrome-extension://enpfmofhhebbnglkjmieogepboaamdga/"
     ]
 }

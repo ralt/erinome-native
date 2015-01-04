@@ -4,10 +4,10 @@
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
-(ql:quickload "pgp-ext-app")
+(ql:quickload "erinome-native")
 
-(sb-ext:save-lisp-and-die #P"dist/pgp-ext-app"
-                          :toplevel 'pgp-ext-app:main
+(sb-ext:save-lisp-and-die #P"dist/erinome-native"
+                          :toplevel 'erinome-native:main
                           :executable t
 			  :compression 9
                           :purify t)

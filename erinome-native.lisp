@@ -1,4 +1,4 @@
-(in-package #:pgp-ext-app)
+(in-package #:erinome-native)
 
 (defvar +tmp-folder+ "/tmp/")
 (defvar +tmp-filenames-length+ 29)
