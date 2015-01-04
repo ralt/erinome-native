@@ -3,7 +3,7 @@ all:
 
 install-linux-chromium:
 	mkdir -p ~/.config/chromium/NativeMessagingHosts
-	cp com.margaine.pgp_ext_app.json ~/.config/chromium/NativeMessagingHosts/
+	cp com.margaine.erinome_native.json ~/.config/chromium/NativeMessagingHosts/
 	cp dist/erinome-native /usr/local/bin
 
 CURRENT_DIR = $(shell pwd)
