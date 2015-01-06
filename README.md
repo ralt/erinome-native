@@ -7,9 +7,9 @@ The native application to use with https://github.com/Ralt/erinome
 Linux x86_64 and Chromium supported for now.
 
 ```
-$ wget https://github.com/Ralt/erinome-native/releases/download/0.0.1/pgp-ext-app.tar.gz
-$ tar xf pgp-ext-app.tar.gz
-$ cd pgp-ext-app/
+$ wget https://github.com/Ralt/erinome-native/releases/download/0.0.2/erinome-native.tar.gz
+$ tar xf erinome-native.zip
+$ cd erinome-native/
 $ sudo make install-linux-chromium
 ```
 
@@ -19,6 +19,8 @@ $ sudo make install-linux-chromium
 - [ ] Find a way to build on multiple platforms
 - [x] Find out how to handle releases. Github releases.
 - [ ] Handle errors
+- [ ] Extract some code into a `chrome-native-messaging` package (and
+  push it on quicklisp)
 
 ## License
 
