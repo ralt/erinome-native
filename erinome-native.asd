@@ -8,5 +8,4 @@
 	       (:file "actions")
 	       (:file "actions/encrypt")
 	       (:file "actions/decrypt")
-	       (:file "send-error")
 	       (:file "erinome-native")))

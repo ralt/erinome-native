@@ -14,14 +14,11 @@
 	 (action (string-upcase (jsown:val json-object "action"))))
     (send-to-ext
      (jsown:to-json
-      (if (hash-exists action +actions+)
+      (handler-case
 	  (funcall (gethash action +actions+) json-object)
-	  (send-error buffer))))))
-
-(defun hash-exists (key hash)
-  (multiple-value-bind (exists)
-      (gethash key hash)
-    exists))
+	(error () (jsown:new-js
+		    ("action" "error")
+		    ("type" action))))))))
 
 (defun read-stdin-as-string (length)
   (let ((string (make-string length)))
@@ -29,11 +26,14 @@
     string))
 
 (defun read-length (stream)
-  (+
-   (read-byte stream)
-   (* (read-byte stream) (expt 2 8))
-   (* (read-byte stream) (expt 2 16))
-   (* (read-byte stream) (expt 2 24))))
+  (handler-case
+      (+
+       (read-byte stream)
+       (* (read-byte stream) (expt 2 8))
+       (* (read-byte stream) (expt 2 16))
+       (* (read-byte stream) (expt 2 24)))
+    ; When no byte is available, it means the communication is cut off
+    (end-of-file () (sb-ext:exit))))
 
 (defun integer-to-bytes (integer)
   (list
