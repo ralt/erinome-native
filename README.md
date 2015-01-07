@@ -18,7 +18,7 @@ $ sudo make install-linux-chromium
 - [x] Refactor to create and use define-action
 - [ ] Find a way to build on multiple platforms
 - [x] Find out how to handle releases. Github releases.
-- [ ] Handle errors
+- [x] Handle errors
 - [ ] Extract some code into a `chrome-native-messaging` package (and
   push it on quicklisp)
 
