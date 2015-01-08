@@ -21,6 +21,8 @@ $ sudo make install-linux-chromium
 - [x] Handle errors
 - [ ] Extract some code into a `chrome-native-messaging` package (and
   push it on quicklisp)
+  - [x] Extract
+  - [ ] Push on quicklisp
 
 ## License
 
