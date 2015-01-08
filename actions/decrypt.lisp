@@ -25,4 +25,5 @@
     "-u" email
     "--output" temp-decrypted-file
     "--yes"
+    "--always-trust"
     temp-encrypted-file)))

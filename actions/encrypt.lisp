@@ -26,5 +26,6 @@
     "--recipient" email
     "--output" temp-encrypted-file
     "--yes"
+    "--always-trust"
     "--armor"
     temp-file)))
