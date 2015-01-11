@@ -3,19 +3,15 @@
 (define-action decrypt (json-object)
   (let ((email (jsown:val json-object "email"))
 	(message (jsown:val json-object "message"))
-	(temp-encrypted-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+)))
-	(temp-decrypted-file (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+))))
+	(temp-encrypted-file (random-path))
+	(temp-decrypted-file (random-path)))
     (delete-files (list temp-encrypted-file temp-decrypted-file))
-    (with-open-file (file temp-encrypted-file
-			  :direction :output
-			  :if-does-not-exist :create)
-      (format file "~A" message))
+    (write-file temp-encrypted-file message)
     (decrypt-run-gpg email temp-encrypted-file temp-decrypted-file)
-    (with-open-file (file temp-decrypted-file)
-      (jsown:new-js
-        ("action" "decrypted")
-	("sender" (jsown:val json-object "name"))
-	("text" (read-file file))))))
+    (jsown:new-js
+     ("action" "decrypted")
+     ("sender" (jsown:val json-object "name"))
+     ("text" (read-file temp-decrypted-file)))))
 
 (defun decrypt-run-gpg (email temp-encrypted-file temp-decrypted-file)
   (external-program:run

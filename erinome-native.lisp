@@ -32,6 +32,16 @@
       (loop repeat length do (princ (random 36) stream)))))
 
 (defun read-file (file)
-  (loop for line = (read-line file nil)
-     while line
-     collect line))
+  (with-open-file (f file)
+    (loop for line = (read-line f nil)
+       while line
+       collect line)))
+
+(defun write-file (file string)
+  (with-open-file (f file
+		     :direction :output
+		     :if-does-not-exist :create)
+    (format f "~A" string)))
+
+(defun random-path ()
+  (concatenate 'string +tmp-folder+ (random-string +tmp-filenames-length+)))
