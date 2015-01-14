@@ -17,4 +17,6 @@
    "/usr/bin/gpg"
    (list
     "--output" temp-signed-file
-    "--clearsign" temp-to-sign-file)))
+    "--yes"
+    "--clearsign"
+    temp-to-sign-file)))
