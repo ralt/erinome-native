@@ -7,7 +7,7 @@ The native application to use with https://github.com/Ralt/erinome
 Linux x86_64 and Chromium supported for now.
 
 ```
-$ wget https://github.com/Ralt/erinome-native/releases/download/0.0.2/erinome-native.tar.gz
+$ wget https://github.com/Ralt/erinome-native/releases/download/0.0.2/erinome-native.zip
 $ unzip erinome-native.zip
 $ cd erinome-native/
 $ sudo make install-linux-chromium
