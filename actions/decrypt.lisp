@@ -6,7 +6,7 @@
 	(temp-encrypted-file (random-path))
 	(temp-decrypted-file (random-path)))
     (delete-files (list temp-encrypted-file temp-decrypted-file))
-    (write-file temp-encrypted-file message)
+    (write-file temp-encrypted-file (clean-ws message))
     (decrypt-run-gpg email temp-encrypted-file temp-decrypted-file)
     (jsown:new-js
      ("action" "decrypted")
@@ -23,3 +23,11 @@
     "--yes"
     "--always-trust"
     temp-encrypted-file)))
+
+(defun clean-ws (text)
+  "Clean up whitespaces"
+  (format
+   nil
+   "~{~A~%~}"
+   (loop for line in (split-sequence:split-sequence #\Newline text)
+      collect (string-left-trim " " line))))

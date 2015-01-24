@@ -3,7 +3,10 @@
   :author "Florian Margaine <florian@margaine.com>"
   :license "MIT License"
   :serial t
-  :depends-on ("jsown" "external-program" "chrome-native-messaging")
+  :depends-on ("jsown"
+	       "external-program"
+	       "chrome-native-messaging"
+	       "split-sequence")
   :components ((:file "package")
 	       (:file "actions")
 	       (:file "actions/encrypt")
